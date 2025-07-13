@@ -2,6 +2,7 @@ import streamlit as st
 import pickle as pkl
 import pandas as pd
 import requests
+import os
 
 def fetch_poster(movie_id):
     response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key=1df0f5c9c8104027bec28c711ce22946&language=en-US')
@@ -23,9 +24,9 @@ def recommend(movie):
         recommended_movies_posters.append(fetch_poster(movie_id))
     return recommended_movies, recommended_movies_posters
 
-movies_dict = pkl.load(open(r"C:\Users\Nikhil\OneDrive\Desktop\MY PERSONAL WORK\DATA SCIENCE\Projects\Machine Learning\Movie Recommender System\Movie-Recommender-System\model\movies_dict.pkl",'rb'))
+movies_dict = pkl.load(open(os.path.join("model","movies_dict.pkl"),'rb'))
 movies = pd.DataFrame(movies_dict)
-similarity = pkl.load(open(r"C:\Users\Nikhil\OneDrive\Desktop\MY PERSONAL WORK\DATA SCIENCE\Projects\Machine Learning\Movie Recommender System\Movie-Recommender-System\model\similarity.pkl",'rb'))
+similarity = pkl.load(open(os.path.join("model","similarity.pkl"),'rb'))
 
 st.title("Movie Recommender System")
 
